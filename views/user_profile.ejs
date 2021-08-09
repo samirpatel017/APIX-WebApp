@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/userprofile.css">
+
+</head>
+
+<body>
+  <div class="container" id="root">
+
+
+    <%if(user.id==profile_user.id){%>
+      <!-- if user match than show user details  -->
+
+
+      <header>
+
+        <div class="container1">
+
+          <div class="profile">
+
+            <div class="profile-image">
+
+              <img class="user_avatar" src="<%=user.avatar%>" alt="">
+
+            </div>
+
+            <div class="profile-user-settings">
+
+              <h1 class="profile-user-name">
+                <%=user.name%>
+              </h1>
+
+              <button class="btn1 profile-edit-btn border border-dark" data-toggle="modal"
+                data-target="#user_profile_edit">Edit Profile</button>
+              <div class="modal fade" id="user_profile_edit" tabindex="-1" aria-labelledby="user_profile_edit"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="user_profile_edit">Edit profile</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/user/update/<%=profile_user.id%>" enctype="multipart/form-data" method="post">
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" id="name" name="name" placeholder="Change Name Here "
+                            required value="<%=profile_user.name%>">
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" class="form-control" id="email" name="email"
+                            placeholder="Change Email Here " required value="<%=profile_user.email%>">
+                        </div>
+                        <div class="form-group">
+                          <label for="bio">bio</label>
+                          <input type="text" class="form-control" id="bio" name="bio" placeholder="Change bio here "
+                            value="<%=profile_user.bio%>">
+                        </div>
+                        <div class="form-group">
+                          <label for="avatar">Profile Photo</label>
+                          <input type="file" class="form-control-file" onchange="readURL(this)" accept="image/*"
+                            name="avatar" id="avatar">
+
+                          <img id="blah" src="#" alt="your image" />
+
+                        </div>
+                        <p class="text-danger">*Note : Image Should be below 2 mb /2024 kb </p>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn1 profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
+                  aria-hidden="true"></i></button>
+
+            </div>
+
+            <div class="profile-stats">
+
+              <ul>
+                <li><span class="profile-stat-count">
+                    <%=user.posts.length%>
+                  </span> posts</li>
+
+                <li><span class="profile-stat-count">
+                    <%=user.friendships.length%>
+                  </span> Friend</li>
+              </ul>
+
+            </div>
+
+            <div class="profile-bio">
+
+              <p><span class="profile-real-name">
+                 🗯
+                </span>
+                <%=user.bio%>
+              </p>
+
+            </div>
+
+          </div>
+          <!-- End of profile section -->
+
+        </div>
+        <!-- End of container -->
+
+      </header>
+      <hr>
+      <!-- main poojan -->
+      <%- include('_profile_feeds') -%>
+      <!-- main poojan -->
+      <!-- <main>
+
+        <div class="container">
+
+          <div class="gallery">
+            <%for(let img of profile_user.posts){%>
+              <%if(img.post_img!=null){%>
+                <div class="gallery-item" tabindex="0">
+                  <img src="<%=img.post_img%>" class="gallery-image" alt="">
+                  <div class="gallery-item-info">
+                    <ul>
+                      <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart"
+                          aria-hidden="true"></i>
+                        <%=img.likes.length%>
+                      </li>
+                      <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
+                          class="fas fa-comment" aria-hidden="true"></i>
+                        <%=img.comments.length%>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                  <%}%>
+              <%}%>
+
+          </div>
+        
+
+
+        </div>
+     
+
+      </main> -->
+      <%}else{%>
+        <!-- if user dont match than only show profile  -->
+        <header>
+
+          <div class="container1">
+
+            <div class="profile">
+
+              <div class="profile-image">
+
+                <img class="user_avatar" src="<%= profile_user.avatar %>" alt=" <%=profile_user.name%>">
+
+              </div>
+
+              <div class="profile-user-settings">
+
+                <h1 class="profile-user-name">
+                  <%=profile_user.name%>
+                </h1>
+
+
+                <%if(locals.are_friends){%>
+                  <a href="/user/profile/<%=profile_user._id%>/toggle_friend" id="add-friend"
+                    class="btn1 profile-edit-btn border border-dark bg-dark text-white ">Unfollow</a>
+
+                    <button class="btn1 profile-edit-btn border border-dark bg-dark text-white " id="trigger"style="background-color: transparent;" data-target="#UserChatBox">Chat  &nbsp;<i class="far fa-comment"></i></button>
+                  <%}else{%>
+                    <%if(locals.req_pending){%>
+                      <a href="/user/friendreq/<%=profile_user._id%>" id="add-friend"
+                       class="btn1 profile-edit-btn border border-dark bg-dark text-white "> Requested </a>
+
+                      <%}else{%>
+                        <a href="/user/friendreq/<%=profile_user._id%>" id="add-friend"
+                          class="btn1 profile-edit-btn border border-dark bg-dark text-white "> follow</a>
+
+                        <%}%>
+                    <%}%>
+
+                      
+                        <button class="btn1 profile-edit-btn border border-dark bg-dark text-white" data-toggle="modal"
+                        data-target="#USER_MESSAGE">Email</button>
+
+
+              </div>
+
+              <div class="profile-stats">
+
+                <ul>
+                  <li><span class="profile-stat-count">
+                      <%=profile_user.posts.length%>
+                    </span> posts</li>
+                  <li><span class="profile-stat-count">
+                      <%=profile_user.friendships.length%>
+                    </span> Friend</li>
+                </ul>
+                <!-- MOdal for message button -->
+               
+                      <div class="modal fade" id="USER_MESSAGE" tabindex="-1" aria-labelledby="USER_MESSAGE"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="USER_MESSAGE">Message</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+
+                              <form action="/user/sendmsg/<%=profile_user._id%>" method="post">
+                                <div class="form-floating">
+                                  <textarea class="form-control" placeholder="Leave a Message here" name="msg" id="floatingTextarea2" style="height: 100px" required></textarea>
+                                </div>
+                                <button class="btn btn-info d-block ml-auto m-2" type="submit" id="button-addon2">Send</button>
+                                </form>
+                         
+                      </div>
+                    </div>
+                  </div>  
+                  </div>
+          <!-- Button trigger modal -->
+          
+        <div class="profile-bio">
+  
+          <p><span class="profile-real-name"> 🗯</span> <%=profile_user.bio%></p>
+         
+        
+        </div>
+  
+      </div>
+      <!-- End of profile section -->
+  
+          </div>
+    </div>
+    <!-- End of container -->
+  
+  </header>
+    <%if(locals.are_friends){%>
+      <%- include('_profile_feeds') -%>
+    <%}%>
+  <%}%>
+ 
+</div>
+
+<script src="/js/user_profile.js"></script>
+<script src="/js/chatboxtoggle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+<% if (friendid !=0){%>
+
+  <%- include('_chatbox');%> 
+<%}%>
+
+  </body>
+  <%if(locals.user){%>
+    <% if (friendid !=0){%>
+      <script src="/js/chat_engine.js"></script>
+      <script>
+     
+          new chatEngine('UserChatBox','<%=profile_user.email%>','<%=friendid%>','<%= profile_user.avatar.split("\\").join("\\\\") %>','<%=profile_user.name%>','<%=locals.user.id%>','<%= locals.user.avatar.split("\\").join("\\\\") %>')
+      </script>
+      
+      <%}%>
+    <%}%>
+</html>

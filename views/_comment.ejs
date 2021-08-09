@@ -1,0 +1,31 @@
+<li class="media" id="post-comment-<%=comment._id%>">
+    <a href="#" class="pull-left">
+        <a href="/user/profile/<%=comment.user._id %>">  <img src="<%=comment.user.avatar%>" alt="" class="img-circle"></a>
+    </a>
+    <div class="media-body mx-2">
+        <a href="/user/profile/<%=comment.user._id %>"><strong class="text-success"> <%=comment.user.name%></strong></a>
+        <br>
+        <sup class="text-muted pull-right ">
+            <small class="text-muted" id="time_comment"><%=moment(comment.createdAt).fromNow().charAt(0).toUpperCase()+moment(comment.createdAt).fromNow().slice(1)%></small>
+        </sup>
+        <p>
+            <%=comment.content%>
+        </p>
+        <p>
+            <%if(locals.user){%>
+                <a href="/like/toggle/?id=<%=comment._id%>&type=Comment" id="like-<%=comment._id%>" class="like-buttons"
+                    data-likes="<%=comment.likes.length%>" data-toggle="false"><i class="far fa-heart"></i>
+                    <span><%=comment.likes.length%></span> </a> &nbsp
+            <%}else{%>
+                <%=comment.likes.length%> Likes
+            <%}%>
+        </p>
+    </div>
+    <%if (locals.user){%>
+        <%if (locals.user.id==comment.user._id || locals.user.id==post.user._id) { %>
+            <a class="delete_comment_button" href="/comment/destroy/<%=comment._id%>">
+                <h5 class="text-right"><i class="fas fa-trash"></i></h5>
+            </a>
+        <%}%>
+    <%}%>
+</li>

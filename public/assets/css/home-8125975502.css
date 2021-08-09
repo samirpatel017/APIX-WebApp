@@ -1,0 +1,41 @@
+.main{margin-top:20px;}
+
+.comment-wrapper {
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:40px;
+    height:40px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+#card{
+    padding-right: -15px!important;
+    padding-left: -15px!important;
+}
+svg :hover{
+    fill: rgb(13 128 183);
+}
+.home-img{
+    width: 3rem;
+    border-radius: 10%;
+    height: 3rem;
+}
+.user_img{
+    width: 60%;
+
+    
+}
+.user_img img{
+    width: 50px;
+    height: 50px;
+    
+}
+.like-button{
+    text-decoration: none;
+}

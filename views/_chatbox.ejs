@@ -1,0 +1,89 @@
+<%if(locals.user){%>
+	<link rel="stylesheet" type="text/css" href="/css/chatbox.css">
+		<body>
+			
+			<div class="chat-box d-none" id="UserChatBox">
+				<div class="header1">
+				  <div class="avatar-wrapper avatar-big">
+					<img class="chatimg" id="user_chat_profile_image" src="<%= profile_user.avatar %>" alt="avatar" />
+				  </div>
+				  <span class="name" id="chatusername"><%= profile_user.name %></span>
+				  <div id="feedback"></div>
+				  <span class="options">
+					<i class="fas fa-ellipsis-h"></i>
+				  </span>
+				</div>
+				<div class="chat-room" id="ms_card_body">
+					
+				<%if(usermsgs!=0){%>
+				<%for(let i of usermsgs.messages){%>
+					<%if(i.sender!=locals.user.id){%>
+
+				  <div class="message message-left">
+					<div class="avatar-wrapper avatar-small">
+					  <!-- <img class="chatimg"src="https://znews-photo.zadn.vn/w660/Uploaded/pnbcuhbatgunb/2020_03_23/i13863960814_1.jpg" alt="avatar" /> -->
+					  <img class="chatimg left_img" src="<%= profile_user.avatar %>" alt="avatar" />
+					</div>
+					<div class="bubble bubble-light">
+						<%=i.content%>
+					</div>
+				  </div>
+					<%}else{%>
+
+				  <div class="message message-right">
+					<div class="avatar-wrapper avatar-small">
+					  <img class="chatimg right_img" src="<%=locals.user.avatar%>" alt="avatar" />
+					</div>
+					
+					
+					
+						<div class="bubble bubble-dark">
+						  
+						  <%=i.content%>
+						</div>
+						
+				
+				  </div>
+				  	<%}%>
+				  	<%}%>
+				  <%}%>
+				</div>
+				<form action="">
+				<div class="type-area">
+				  <div class="input-wrapper">
+					<input type="text" name="message" id="inputText" placeholder="Type messages here..." autocomplete="off" />
+				  </div>
+				  <span class="button-add">
+					<i class="fas fa-plus-circle"></i>
+					<div class="others">
+					  <span class="emoji-button">
+						<i class="far fa-laugh"></i>
+						<div class="emoji-box">
+						  <span>&#x1f604;</span>
+						  <span>😀</span>
+						  <span>😂</span>
+						  <span>😭</span>
+						  <span>😍</span>
+						  <span>🤮</span>
+						  <span>🤑</span>
+						  <span>😖</span>
+						  <span>😷</span>
+						</div>
+					  </span>
+					  <span class="image-button">
+						<i class="far fa-image"></i>
+					  </span>
+					  <span>
+						<i class="fas fa-paperclip"></i>
+					  </span>
+					</div>
+				  </span>
+				  <button type="submit" id="send-message" class="button-send">Send</button>
+				</div>
+			</form>
+			  </div>
+	<script src="/js/chatbox.js"></script>
+	
+		</body>
+	<%}%>
+	

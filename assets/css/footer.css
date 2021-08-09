@@ -1,0 +1,14 @@
+footer {
+  background-color: #2e2e2e;
+  height: 30px;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+}
+
+footer h5 {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  padding-top: 5px;
+}

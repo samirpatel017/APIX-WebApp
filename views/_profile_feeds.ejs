@@ -1,0 +1,136 @@
+<main>
+    <div class="container slider">
+      <div class="btn-box">
+        <div id="btn"></div>
+        <button type="button" id="Post_images_btn" class="toggle-btn" style="outline: 0;"onclick="login()">
+          Post with Image
+        </button>
+        <button type="button" id="Post_texes_btn" class="toggle-btn " style="outline: 0;"onclick="register()">
+          Your Thoughts
+        </button>
+      </div>
+      
+      <div class="gallery ig" id="Post_images">
+        <%for(let posts of profile_user.posts){%>
+            <%if(posts.post_img!=null){%>
+        <div
+          class="gallery-item gallery-item-img"
+          style="max-width: 300px; max-height: 350px"
+          tabindex="0"
+        >
+          <img src="<%=posts.post_img%>" class="gallery-image" alt="" />
+
+          <div
+            class="gallery-item-info"
+            style="max-width: 300px; max-height: 350px"
+          >
+            <ul>
+              <li class="gallery-item-likes">
+                <span class="visually-hidden">Likes:</span
+                ><i class="fas fa-heart" aria-hidden="true"></i>
+                <%=posts.likes.length%>
+              </li>
+              <li class="gallery-item-comments">
+                <span class="visually-hidden">Comments:</span
+                ><i class="fas fa-comment" aria-hidden="true"></i>
+                <%=posts.comments.length%>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <%}%> <%}%>
+      </div>
+      <!-- End of gallery -->
+       
+      <div class="gallery ig" id="Post_texts">
+        
+        <%for(let posts of profile_user.posts){%>
+            <%if(posts.post_img==null){%>
+            <div class="gallery-item  gallery-item-text"  tabindex="0">
+
+                <div id="post_<%=posts._id%>" class="card my-3 d-block mx-auto" >
+                <div class="card-body"style="width: 300px; height: 180px;">
+                    <div class=" card-header d-flex justify-content-between ">
+                    
+                    
+                    </div>
+                    
+                        <div class="d-flex">
+                        <div>
+                            <i class="fas fa-comments mr-4  mt-4 fa-lg"></i>
+                        </div>
+                        <div>
+                            <h5 class="card-text mt-3" style="white-space: pre-line;color:black">
+                            <%=posts.content%>
+                            </h5>
+                        </div>
+                
+                        </div>
+                        <hr>
+                        <br>
+                        
+                </div>
+                </div>
+              
+                <div class="gallery-item-info"style="max-width: 301px; height: 180px; margin-top: 1.1rem;">
+                    <ul>
+                        <li class="gallery-item-likes">
+                        <span class="visually-hidden">Likes:</span
+                        ><i class="fas fa-heart" aria-hidden="true"></i>
+                        <%=posts.likes.length%>
+                        </li>
+                        <li class="gallery-item-comments">
+                        <span class="visually-hidden">Comments:</span
+                        ><i class="fas fa-comment" aria-hidden="true"></i>
+                        <%=posts.comments.length%>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+        <%}%>
+        <%}%>
+      </div>
+    </div>
+    <!-- End of container -->
+  </main>
+  <script>
+    var x = document.getElementById("Post_images");
+    var y = document.getElementById("Post_texts");
+    var z = document.getElementById("btn");
+  
+    function register() {
+      x.style.left = "-1000px";
+      y.style.left = "50px";
+      z.style.left = "50%";
+    }
+  
+    function login() {
+      x.style.left = "60px";
+      y.style.left = "-1000px";
+      z.style.left = "0px";
+    }
+
+
+    $('document').ready(() => {
+    
+        $('.gallery-item-text').addClass("d-none");
+   
+        $('#Post_texes_btn').click((e) => {
+        
+           
+                $('.gallery-item-img').addClass("d-none");
+                $('.gallery-item-text').removeClass("d-none");
+      
+        })
+        $('#Post_images_btn').click((e) => {
+        
+           
+                $('.gallery-item-text').addClass("d-none");
+                $('.gallery-item-img').removeClass("d-none");
+      
+        })
+    
+    
+        })
+  </script>

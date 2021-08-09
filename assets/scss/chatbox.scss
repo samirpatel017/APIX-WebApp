@@ -1,0 +1,218 @@
+$blue: #cff1ef;
+$light-violet: #fbcffc;
+$violet: #be79df;
+$gray: #f7f9fb;
+.chat-box  {
+  position: fixed;
+  // border-radius: 30px;
+  right: 0%;
+  bottom: 0%;
+  width: 30vh;
+  overflow: hidden;
+  z-index: 1019;
+  display: flex;
+  flex-direction: column;
+ 
+}
+.chat-box  {
+  font-family: "Sen", sans-serif;
+}
+i:hover {
+  color: $violet;
+}
+.d-none {
+  display: none !important;
+}
+.others-show{
+  top:-55px !important;
+  z-index:10 !important;
+}
+.emoji-show{
+            display:flex !important;
+            flex-wrap:wrap;
+            align-content:flex-start;
+            width:150px !important;
+            height:100px !important;
+            padding:10px;           
+           
+            top:-135px !important;
+            right:10px !important;
+            background-color:#fff;
+            box-shadow:0 0 25px -5px lightgray;
+            border-radius:5px 5px 0 5px;
+}
+button {
+  border: 0;
+  outline: none;
+}
+.chatimg {
+  width: 100%;
+  object-fit: cover;
+}
+.avatar-wrapper {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.chat-box {
+  width: 30%;
+  margin: auto;
+  .header1 {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px 20px 0 0;
+    background-color: cadetblue;
+    padding: 15px;
+    height: 70px;
+    .avatar-big {
+      width: 35px;
+      height: 35px;
+    }
+    .name {
+      margin-left: 20px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    .options {
+      font-size: 20px;
+      color: lightgrey;
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+  .chat-room {
+    max-height: 40vh;
+    overflow-Y: scroll;
+
+    min-height: 300px;
+    background-color: #f7f9fb;
+    padding: 15px;
+   -ms-overflow-style: none!important;  /* IE and Edge */
+    scrollbar-width: none!important;
+    .avatar-small {
+      width: 25px;
+      height: 25px;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .message {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    .message-left {
+      align-items: flex-start;
+      .bubble {
+        border-radius: 0 5px 5px 5px;
+      }
+    }
+    .message-right {
+      align-items: flex-end;
+      .bubble {
+        border-radius: 5px 0 5px 5px;
+      }
+    }
+    .bubble {
+      padding: 10px;
+      font-size: 14px;
+      margin-top: 5px;
+      display: inline-block;
+    }
+    .bubble-light {
+      background-color: $light-violet;
+    }
+    .bubble-dark {
+      color: #fff;
+      background-color: $violet;
+    }
+  }
+  .type-area {
+    display: flex;
+    height: 65px;
+    background-color: #fff;
+    border-radius: 0 0 20px 20px;
+    .input-wrapper {
+      overflow:hidden;
+      border-radius: 0 0 0 20px;
+      input {
+        outline: none;
+        border: none;
+        padding-left: 20px;
+        height: 100%;
+        width: 22vw;
+        font-size: 14px;
+      }
+    }
+    .button-add {
+      display: flex;
+      align-items: center;
+      position: relative;
+      i {
+        font-size: 30px;
+        color: lightgrey;
+        cursor: pointer;
+      }
+      i:hover {
+        color: $violet;
+      }
+      .others {
+        display: flex;
+        padding: 10px 15px;
+        background-color: #fff;
+        position: absolute;
+        top:5px;
+        z-index:-1;
+        right:-52px;
+        border-radius: 999px;
+        box-shadow:0 0 25px -5px lightgray;
+        transition:0.3s all ease-out;
+        span {
+          i {
+            font-size: 20px;
+            color: $violet;
+          }
+          
+        }
+        span.image-button {
+          margin: 0 25px;
+        }
+        .emoji-button{
+          position:relative;
+          .emoji-box{       
+            display:none;
+            position:absolute;
+            width:0px;
+            height:0px;          
+            top:0px;
+            right:0px;
+            transition:0.3s all ease-out;
+            span{
+              user-select:none;
+              cursor:pointer;
+              margin-right:5px;
+              margin-bottom:5px;
+              width:20px;
+              height:20px;
+            }
+          }
+        }
+      }
+    }
+
+    .button-send {
+      background-color: #fff;
+      margin-left: auto;
+      width: 65px;
+      color: $violet;
+      font-weight: bold;
+      border-left: 2px solid #f7f9fb;
+      border-radius: 0 0 20px 0;
+    }
+    .button-send:hover {
+      background-color: $violet;
+      color: #fff;
+    }
+  }
+}

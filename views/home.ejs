@@ -1,0 +1,135 @@
+<link rel="stylesheet" type="text/css" href="/css/home.css">
+
+<body>
+    <div class="main">
+        <%if (locals.user) {%>
+    <hr>
+    <div class="container ">  
+
+        <div class=" row">
+            <div class="col-9">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <button class="trigger btn btn-primary"  data-target="#only_for_Post">Post Your Thoughts</button>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button class="trigger btn btn-primary" data-target="#Post_with_image">Post Your Image</button>
+                        </div>
+                    </div>
+                    <!-- modal -->
+                    <div id="only_for_Post" class="d-none">
+                        <h1>Write Your Beautiful Thoughts</h1>
+                        <form action="/post/create" id="post_form" enctype="multipart/form-data"  method="POST">
+                        
+                            
+                        
+                        <div class="form-group">
+                            <label for="post"><b>☯</b></label>
+                            <textarea class="form-control" id="post" rows="3" name="post_content" placeholder="Type here..."
+                                required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Post</button>
+                        </form>
+                    </div>
+                    <!-- modal -->
+                    <div id="Post_with_image"class="d-none">
+                        <!-- modal -->      
+
+                    <hr>
+                        <h2>Showcase Your Art To The World Of Art Lovers</h2>
+
+                        <form action="/post/create_image"  id="post_img_form" enctype="multipart/form-data"  method="POST">
+                            <div class="form-group">
+                                
+                                <input type="file" class="form-control-file" accept="image/*" onchange="readURL(this)" name="post_img" id="postimg">
+                            </div>
+                            <img id='USERSIMGDEMO' src="#" alt="your image" />
+                            <div class="form-group">
+                                <label for="post"><b> Caption </b></label>
+                                <textarea class="form-control" id="post" rows="3" name="post_content" placeholder="Type here..."
+                                    required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </form>
+<!-- real -->       </div>
+
+                </div>
+                <hr>
+                <%}else{%>
+                    <h1 class="text-center">we are in home page bro</h1>
+                <%}%>
+                <div class="container " id="notes_post">
+                    <% for (post of post_list) { %>
+                        <%- include('_post') -%>
+                    <% } %>
+                </div>  
+            </div>
+        
+        <%if (locals.user) {%>
+        <div class="col-3">
+            <div class="list-group">
+                <li class="list-group-item list-group-item-info mb-1 text-center"><strong>Request</strong></li>
+                <%for(let u of paddreq){%>
+                        <%if(user.id != u.user.id ){%>
+                            <div class="list-group-item text-info list-group-item-action mb-1 bg-light border-top-0 border-right-0  border-bottom d-flex justify-content-between align-items-center">
+                            <a href="/user/profile/<%= u.user.id %>"><img class="home-img" src="<%=u.user.avatar %>" alt=" <%=u.user.name%>">
+                                
+                            <%=u.user.name%></a>
+                            <a href="/user/friendreq/cancel/<%=u.id%>"><i class="fas fa-times"></i></a>
+                            <a href="/user/profile/<%=u.user._id%>/toggle_friend/?pid=<%=u.id%>" ><i class="fas fa-check"></i></a>
+                            </div>
+                        
+                    <%}%>
+                <%}%>
+            </div>
+            <div class="list-group">
+                <li class="list-group-item list-group-item-info  mb-1 text-center"><strong> F.R.I.E.N.D.S</strong></li>     
+                <%for(let fr of friends){%>
+                    <%if (user.id !=fr.friend_id ) {%>
+                        <a href="/user/profile/<%= fr.friend_id %>" class="list-group-item text-info list-group-item-action mb-1 bg-light border-top-0 border-right-0  border-bottom ">
+                        <img class="home-img" src="<%=fr.friend_avatar%>" alt="">
+                        <%=fr.friend_name%></a>
+                    <%}%>
+                <%}%>                     
+            </div>
+            <div class="list-group">
+                <li class="list-group-item list-group-item-info mb-1 text-center"><strong>U.S.E.R</strong></li>
+                <%for(let u of all_user){%>
+                        <%if(user.id != u.id ){%>
+                            <a href="/user/profile/<%= u.id %>" class="list-group-item text-info list-group-item-action mb-1 bg-light border-top-0 border-right-0  border-bottom ">
+                            <img class="home-img" src="<%=u.avatar %>" alt=" <%=u.name%>">
+                            <%=u.name%></a>
+                    <%}%>
+                <%}%>
+            </div>
+        </div>
+    
+        <%}%>   
+    </div>
+    </div>  
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+<script src="/js/home_post.js"></script>
+<script src="/js/home_comment.js"></script>
+<script src="/js/toggle-likes.js"></script>
+<script src="/js/home.js"></script>
+<script>
+    $('.like-buttons').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>
+<!-- <%if(locals.user){%>
+
+<script src="/js/chat_engine.js"></script>
+<script>
+    new chatEngine('UserChatBox','<%=locals.user.email%>')
+</script>
+
+<%}%> -->
+</body>
